@@ -24,12 +24,17 @@
 <body>
 
 <div class="container">
-    <h1>📐 現場工程手繪圖轉 CAD <span style="font-size: 16px; color: #fff; background: #dc3545; padding: 4px 10px; border-radius: 12px; vertical-align: middle;">v1.0.0 AI 視覺辨識版</span></h1>
+    <h1>📐 現場工程手繪圖轉 CAD <span style="font-size: 16px; color: #fff; background: #dc3545; padding: 4px 10px; border-radius: 12px; vertical-align: middle;">v1.0.1 AI 視覺辨識版</span></h1>
     
     <div class="instructions">
         <strong>操作說明：</strong> 
-        上傳圖片後，AI 視覺引擎（MVP 暫用模擬數據）會自動為您畫出管線與接頭。
+        請先在下方輸入您的 Google Gemini API 金鑰，上傳圖片後，AI 視覺引擎會自動為您畫出管線與接頭。
         您可以**直接在畫布上拖曳、調整大小**，或按 <kbd>Delete</kbd> / <kbd>Backspace</kbd> 刪除選取的元件。
+    </div>
+    
+    <div style="text-align: center; margin-bottom: 20px;">
+        <input type="password" id="apiKeyInput" placeholder="請在此貼上您的 Google Gemini API Key" style="padding: 10px; width: 350px; border-radius: 4px; border: 1px solid #ccc;">
+        <button onclick="saveApiKey()" style="background: #28a745;">儲存金鑰</button>
     </div>
 
     <div class="toolbar">

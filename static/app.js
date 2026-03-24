@@ -3,6 +3,15 @@ const canvas = new fabric.Canvas('editorCanvas', {
     selection: true
 });
 const statusText = document.getElementById('statusText');
+const apiKeyInput = document.getElementById('apiKeyInput');
+
+// 載入 localStorage 中的 API Key
+apiKeyInput.value = localStorage.getItem('geminiApiKey') || '';
+
+function saveApiKey() {
+    localStorage.setItem('geminiApiKey', apiKeyInput.value);
+    alert('API Key 已儲存於瀏覽器暫存中！');
+}
 
 // History Stack 實作還原功能
 let historyStack = [];
@@ -96,11 +105,16 @@ document.getElementById('imageInput').addEventListener('change', async (e) => {
 
     const formData = new FormData();
     formData.append("file", file);
+    formData.append("api_key", apiKeyInput.value);
 
     try {
-        statusText.innerText = "正在呼叫 AI 視覺辨識模型... (模擬中)";
+        statusText.innerText = "正在呼叫 Google Gemini 視覺模型分析圖面...";
         const response = await fetch('/upload', { method: 'POST', body: formData });
         const data = await response.json();
+        
+        if (data.error) {
+            alert("AI 辨識錯誤: " + data.error);
+        }
         
         // 設定圖片背景
         fabric.Image.fromURL(data.imageUrl, function(img) {

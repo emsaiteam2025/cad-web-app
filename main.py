@@ -3,7 +3,7 @@ import time
 import math
 import json
 from typing import List
-from fastapi import FastAPI, File, UploadFile, Request
+from fastapi import FastAPI, File, UploadFile, Request, Form
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
@@ -42,7 +42,7 @@ async def serve_root():
     return FileResponse("static/index.html")
 
 @app.post("/upload")
-async def upload_image(file: UploadFile = File(...)):
+async def upload_image(file: UploadFile = File(...), api_key: str = Form(None)):
     filename = f"{int(time.time())}_{file.filename}"
     filepath = os.path.join("uploads", filename)
     with open(filepath, "wb") as f:
@@ -51,10 +51,10 @@ async def upload_image(file: UploadFile = File(...)):
     elements = []
     
     # Check if Gemini API key is configured
-    api_key = os.environ.get("GEMINI_API_KEY")
+    api_key = api_key or os.environ.get("GEMINI_API_KEY")
     if not api_key:
         print("Warning: GEMINI_API_KEY is not set. Using mock response.")
-        return {"imageUrl": f"/uploads/{filename}", "elements": []}
+        return {"imageUrl": f"/uploads/{filename}", "elements": [], "error": "未提供 Google Gemini API 金鑰，請在畫面上方輸入。"}
     
     try:
         from PIL import Image
