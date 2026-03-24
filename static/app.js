@@ -326,9 +326,9 @@ function renderElements(elements) {
         } else if (item.type === 'quick_release') {
             let l1 = new fabric.Line([-15, 0, 15, 0], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
             let f1 = new fabric.Line([-15, -15, -15, 15], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
-            let f2 = new fabric.Line([0, -12, 0, 12], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
-            let f3 = new fabric.Line([15, -15, 15, 15], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
-            obj = new fabric.Group([l1, f1, f2, f3], { left: item.x - 15, top: item.y - 15, customType: 'quick_release' });
+            let f2 = new fabric.Line([15, -15, 15, 15], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
+            let step = new fabric.Polyline([{x: 0, y: 0}, {x: 0, y: -8}, {x: 8, y: -8}], {stroke: '#0056b3', strokeWidth: 3, fill: 'transparent', originX: 'center', originY: 'center', strokeLineJoin: 'round'});
+            obj = new fabric.Group([l1, f1, f2, step], { left: item.x - 15, top: item.y - 15, customType: 'quick_release' });
         }
 
         if (obj) {

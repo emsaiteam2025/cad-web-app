@@ -225,7 +225,8 @@ async def generate_dxf(req: DXFRequest):
             msp.add_arc(get_rotated_pts(cx, cy, [(cx-15, cy)], item.angle)[0], radius=8, start_angle=90-item.angle, end_angle=270-item.angle, dxfattribs=get_attribs('SYMBOLS', item.color))
         elif item.type == 'quick_release':
             add_lines('SYMBOLS', item.color, cx, cy, [
-                (-15, 0, 15, 0), (-15, -15, -15, 15), (0, -12, 0, 12), (15, -15, 15, 15)
+                (-15, 0, 15, 0), (-15, -15, -15, 15), (15, -15, 15, 15),
+                (0, 0, 0, 8), (0, 8, 8, 8)
             ], item.angle)
         elif item.type == 'text':
             attribs = get_attribs('TEXT', item.color)
