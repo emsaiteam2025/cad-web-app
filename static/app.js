@@ -171,6 +171,35 @@ document.querySelectorAll('.tool-btn').forEach(btn => {
     });
 });
 
+// 大小頭下拉選單邏輯
+window.toggleDropdown = function(id) {
+    var menu = document.getElementById(id);
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+};
+
+window.addEventListener('click', function(event) {
+    if (!event.target.matches('.dropdown-btn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        for (var i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.style.display === "block") {
+                openDropdown.style.display = "none";
+            }
+        }
+    }
+});
+
+document.querySelectorAll('.sub-tool-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const type = e.currentTarget.getAttribute('data-tool');
+        const defaultX = canvas.width / 2;
+        const defaultY = canvas.height / 2;
+        renderElements([{ type: type, x: defaultX, y: defaultY }]);
+        statusText.innerText = `已在畫面中央加入 ${e.currentTarget.innerText.trim()}，請拖拉它到對的位置。`;
+    });
+});
+
 function renderElements(elements) {
     elements.forEach(item => {
         let obj = null;
