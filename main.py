@@ -44,16 +44,10 @@ async def upload_image(file: UploadFile = File(...)):
     filepath = os.path.join("uploads", filename)
     with open(filepath, "wb") as f:
         f.write(await file.read())
-    mock_detected_elements = [
-        {"type": "pipe", "x1": 100, "y1": 300, "x2": 250, "y2": 300},
-        {"type": "sleeve", "x": 250, "y": 300},
-        {"type": "pipe", "x1": 250, "y1": 300, "x2": 450, "y2": 300},
-        {"type": "meter", "x": 450, "y": 300},
-        {"type": "pipe", "x1": 450, "y1": 300, "x2": 650, "y2": 300},
-        {"type": "valve", "x": 650, "y": 300},
-        {"type": "pipe", "x1": 650, "y1": 300, "x2": 800, "y2": 300},
-    ]
-    return {"imageUrl": f"/uploads/{filename}", "elements": mock_detected_elements}
+    
+    # 目前先移除硬編碼的模擬資料，避免憑空創造不存在的圖形
+    # 實際的自動判斷未來需要串接真實的 AI 電腦視覺模型 (如 YOLO 或 Vision API)
+    return {"imageUrl": f"/uploads/{filename}", "elements": []}
 
 @app.post("/generate")
 async def generate_dxf(req: DXFRequest):
