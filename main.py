@@ -45,9 +45,20 @@ async def upload_image(file: UploadFile = File(...)):
     with open(filepath, "wb") as f:
         f.write(await file.read())
     
-    # 目前先移除硬編碼的模擬資料，避免憑空創造不存在的圖形
-    # 實際的自動判斷未來需要串接真實的 AI 電腦視覺模型 (如 YOLO 或 Vision API)
-    return {"imageUrl": f"/uploads/{filename}", "elements": []}
+    # 模擬 AI 視覺辨識：將草圖轉換為「現有元件庫」的物件
+    # 注意：MVP 階段使用固定座標模擬。未來需串接 Vision API (如 GPT-4o 或 Gemini) 進行真實圖片解析
+    mock_detected_elements = [
+        {"type": "pipe", "x1": 100, "y1": 300, "x2": 250, "y2": 300},
+        {"type": "sleeve", "x": 250, "y": 300},
+        {"type": "pipe", "x1": 250, "y1": 300, "x2": 350, "y2": 300},
+        {"type": "valve", "x": 350, "y": 300},
+        {"type": "pipe", "x1": 350, "y1": 300, "x2": 450, "y2": 300},
+        {"type": "meter", "x": 450, "y": 300},
+        {"type": "pipe", "x1": 450, "y1": 300, "x2": 550, "y2": 300},
+        {"type": "reducer", "x": 550, "y": 300},
+        {"type": "pipe", "x1": 550, "y1": 300, "x2": 700, "y2": 300},
+    ]
+    return {"imageUrl": f"/uploads/{filename}", "elements": mock_detected_elements}
 
 @app.post("/generate")
 async def generate_dxf(req: DXFRequest):
