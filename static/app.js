@@ -314,17 +314,15 @@ function renderElements(elements) {
             ], opts);
             obj = new fabric.Group([l1, l2, leftSocket, topSocket], { left: item.x - 20, top: item.y - 20, customType: 'tee_3' });
         } else if (item.type === 'elbow90_1' || item.type === 'elbow90') {
-            let opts = { stroke: '#0056b3', strokeWidth: 3, fill: 'transparent', originX: 'center', originY: 'center', strokeLineJoin: 'round' };
-            let l1 = new fabric.Polyline([{x: -15, y: -15}, {x: -15, y: 10}, {x: 10, y: 10}], opts);
-            let botSocket = new fabric.Polyline([{x: -20, y: -15}, {x: -10, y: -15}, {x: -10, y: -25}, {x: -20, y: -25}], opts);
-            let rightFlange = new fabric.Line([10, 5, 10, 15], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
-            obj = new fabric.Group([l1, botSocket, rightFlange], { left: item.x - 20, top: item.y - 25, customType: 'elbow90_1' });
+            let arc = new fabric.Circle({ radius: 8, startAngle: Math.PI/2, endAngle: 3*Math.PI/2, fill: 'transparent', stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center', left: -15, top: 0 });
+            let lTop = new fabric.Line([-15, -20, -15, -8], { stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center' });
+            let lBot = new fabric.Line([-15, 8, -15, 20], { stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center' });
+            let pipe = new fabric.Polyline([{x: -15, y: 0}, {x: 15, y: 0}, {x: 15, y: 20}], { stroke: '#0056b3', strokeWidth: 3, fill: 'transparent', originX: 'center', originY: 'center', strokeLineJoin: 'round' });
+            obj = new fabric.Group([arc, lTop, lBot, pipe], { left: item.x - 23, top: item.y - 20, customType: 'elbow90_1' });
         } else if (item.type === 'elbow90_2') {
-            let opts = { stroke: '#0056b3', strokeWidth: 3, fill: 'transparent', originX: 'center', originY: 'center', strokeLineJoin: 'round' };
-            let l1 = new fabric.Polyline([{x: -15, y: -15}, {x: -15, y: 10}, {x: 10, y: 10}], opts);
-            let botFlange = new fabric.Line([-20, -15, -10, -15], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
-            let rightFlange = new fabric.Line([10, 5, 10, 15], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
-            obj = new fabric.Group([l1, botFlange, rightFlange], { left: item.x - 20, top: item.y - 15, customType: 'elbow90_2' });
+            let lFlange = new fabric.Line([-15, -20, -15, 20], { stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center' });
+            let pipe = new fabric.Polyline([{x: -15, y: 0}, {x: 15, y: 0}, {x: 15, y: 20}], { stroke: '#0056b3', strokeWidth: 3, fill: 'transparent', originX: 'center', originY: 'center', strokeLineJoin: 'round' });
+            obj = new fabric.Group([lFlange, pipe], { left: item.x - 15, top: item.y - 20, customType: 'elbow90_2' });
         } else if (item.type === 'elbow45') {
             let arc = new fabric.Circle({ radius: 8, startAngle: Math.PI/2, endAngle: 3*Math.PI/2, fill: 'transparent', stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center', left: -15, top: 0 });
             let lTop = new fabric.Line([-15, -20, -15, -8], { stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center' });

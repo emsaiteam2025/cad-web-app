@@ -207,15 +207,14 @@ async def generate_dxf(req: DXFRequest):
             ], item.angle)
         elif item.type == 'elbow90_1' or item.type == 'elbow90':
             add_lines('SYMBOLS', item.color, cx, cy, [
-                (-15, -15, -15, 10), (-15, 10, 10, 10),
-                (-20, -15, -10, -15), (-15, -15, -15, -25), (-20, -25, -10, -25),
-                (10, 5, 10, 15)
+                (-15, -20, -15, -8), (-15, 8, -15, 20),
+                (-15, 0, 15, 0), (15, 0, 15, 20)
             ], item.angle)
+            msp.add_arc(get_rotated_pts(cx, cy, [(cx-15, cy)], item.angle)[0], radius=8, start_angle=90-item.angle, end_angle=270-item.angle, dxfattribs=get_attribs('SYMBOLS', item.color))
         elif item.type == 'elbow90_2':
             add_lines('SYMBOLS', item.color, cx, cy, [
-                (-15, -15, -15, 10), (-15, 10, 10, 10),
-                (-20, -15, -10, -15),
-                (10, 5, 10, 15)
+                (-15, -20, -15, 20),
+                (-15, 0, 15, 0), (15, 0, 15, 20)
             ], item.angle)
         elif item.type == 'elbow45':
             add_lines('SYMBOLS', item.color, cx, cy, [

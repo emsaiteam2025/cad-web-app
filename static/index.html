@@ -82,11 +82,17 @@
         <div style="position: relative; display: inline-block;">
             <button class="dropdown-btn" style="padding: 10px 15px; border: none; border-radius: 4px; background: #007bff; color: white; cursor: pointer; font-size: 14px;" onclick="toggleDropdown('elbow90Menu')">90°彎頭 ▼</button>
             <div id="elbow90Menu" class="dropdown-content" style="display: none; position: absolute; background-color: #f9f9f9; min-width: 140px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 100; border-radius: 4px; top: 100%; left: 0;">
-                <a href="#" class="sub-tool-btn" data-tool="elbow90_1" style="color: black; padding: 10px 12px; text-decoration: none; display: flex; align-items: center; border-bottom: 1px solid #ddd; font-size: 14px;">
-                    <svg viewBox="0 0 40 30" width="24" height="20" style="margin-right: 8px;"><path d="M 15 25 L 15 15 L 30 15 M 10 20 L 10 25 L 20 25 L 20 20 M 30 10 L 30 20" stroke="currentColor" stroke-width="2" fill="none"/></svg> 承口
+                <a href="#" class="sub-tool-btn" data-tool="elbow90_2" style="color: black; padding: 10px 12px; text-decoration: none; display: flex; align-items: center; border-bottom: 1px solid #ddd; font-size: 14px;">
+                    <svg viewBox="0 0 40 40" width="20" height="20" style="margin-right: 8px;">
+                        <line x1="10" y1="5" x2="10" y2="35" stroke="currentColor" stroke-width="2"/>
+                        <polyline points="10,20 30,20 30,35" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                    </svg> 法蘭
                 </a>
-                <a href="#" class="sub-tool-btn" data-tool="elbow90_2" style="color: black; padding: 10px 12px; text-decoration: none; display: flex; align-items: center; font-size: 14px;">
-                    <svg viewBox="0 0 40 30" width="24" height="20" style="margin-right: 8px;"><path d="M 10 25 L 10 15 L 25 15 M 5 25 L 15 25 M 25 10 L 25 20" stroke="currentColor" stroke-width="2" fill="none"/></svg> 雙法蘭
+                <a href="#" class="sub-tool-btn" data-tool="elbow90_1" style="color: black; padding: 10px 12px; text-decoration: none; display: flex; align-items: center; font-size: 14px;">
+                    <svg viewBox="0 0 40 40" width="20" height="20" style="margin-right: 8px;">
+                        <path d="M 15 5 L 15 12 A 8 8 0 0 1 15 28 L 15 35" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <polyline points="15,20 30,20 30,35" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                    </svg> 承口
                 </a>
             </div>
         </div>
