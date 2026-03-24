@@ -317,11 +317,15 @@ function renderElements(elements) {
             let rightFlange = new fabric.Line([10, 5, 10, 15], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
             obj = new fabric.Group([l1, botFlange, rightFlange], { left: item.x - 20, top: item.y - 15, customType: 'elbow90_2' });
         } else if (item.type === 'elbow45') {
+            let opts = { stroke: '#0056b3', strokeWidth: 3, fill: 'transparent', originX: 'center', originY: 'center', strokeLineJoin: 'round' };
             let l1 = new fabric.Line([-15, 0, 0, 0], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
             let l2 = new fabric.Line([0, 0, 15, 15], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
-            let f1 = new fabric.Line([-15, -10, -15, 10], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
-            let f2 = new fabric.Line([8, 22, 22, 8], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
-            obj = new fabric.Group([l1, l2, f1, f2], { left: item.x - 15, top: item.y - 10, customType: 'elbow45' });
+            let leftSocket = new fabric.Polyline([
+                {x: -25, y: -15}, {x: -25, y: -6}, {x: -15, y: -6}, 
+                {x: -15, y: 6}, {x: -25, y: 6}, {x: -25, y: 15}
+            ], opts);
+            let rightFlange = new fabric.Line([8, 22, 22, 8], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
+            obj = new fabric.Group([l1, l2, leftSocket, rightFlange], { left: item.x - 25, top: item.y - 15, customType: 'elbow45' });
         } else if (item.type === 'quick_release') {
             let l1 = new fabric.Line([-15, 0, 15, 0], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
             let f1 = new fabric.Line([-15, -15, -15, 15], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});

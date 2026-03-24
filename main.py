@@ -220,7 +220,8 @@ async def generate_dxf(req: DXFRequest):
         elif item.type == 'elbow45':
             add_lines('SYMBOLS', item.color, cx, cy, [
                 (-15, 0, 0, 0), (0, 0, 15, -15),
-                (-15, -10, -15, 10), (8, -22, 22, -8)
+                (-25, -15, -25, -6), (-25, -6, -15, -6), (-15, -6, -15, 6), (-15, 6, -25, 6), (-25, 6, -25, 15),
+                (8, -22, 22, -8)
             ], item.angle)
         elif item.type == 'quick_release':
             add_lines('SYMBOLS', item.color, cx, cy, [
