@@ -317,15 +317,12 @@ function renderElements(elements) {
             let rightFlange = new fabric.Line([10, 5, 10, 15], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
             obj = new fabric.Group([l1, botFlange, rightFlange], { left: item.x - 20, top: item.y - 15, customType: 'elbow90_2' });
         } else if (item.type === 'elbow45') {
-            let opts = { stroke: '#0056b3', strokeWidth: 3, fill: 'transparent', originX: 'center', originY: 'center', strokeLineJoin: 'round' };
-            let l1 = new fabric.Line([-15, 0, 0, 0], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
-            let l2 = new fabric.Line([0, 0, 15, 15], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
-            let leftSocket = new fabric.Polyline([
-                {x: -25, y: -15}, {x: -25, y: -6}, {x: -15, y: -6}, 
-                {x: -15, y: 6}, {x: -25, y: 6}, {x: -25, y: 15}
-            ], opts);
-            let rightFlange = new fabric.Line([8, 22, 22, 8], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
-            obj = new fabric.Group([l1, l2, leftSocket, rightFlange], { left: item.x - 25, top: item.y - 15, customType: 'elbow45' });
+            let arc = new fabric.Circle({ radius: 8, startAngle: Math.PI/2, endAngle: 3*Math.PI/2, fill: 'transparent', stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center', left: -15, top: 0 });
+            let lTop = new fabric.Line([-15, -20, -15, -8], { stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center' });
+            let lBot = new fabric.Line([-15, 8, -15, 20], { stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center' });
+            let lHoriz = new fabric.Line([-15, 0, 5, 0], { stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center' });
+            let lAngled = new fabric.Line([5, 0, 20, 15], { stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center' });
+            obj = new fabric.Group([arc, lTop, lBot, lHoriz, lAngled], { left: item.x - 23, top: item.y - 20, customType: 'elbow45' });
         } else if (item.type === 'quick_release') {
             let l1 = new fabric.Line([-15, 0, 15, 0], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
             let f1 = new fabric.Line([-15, -15, -15, 15], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
