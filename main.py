@@ -107,7 +107,7 @@ async def upload_image(file: UploadFile = File(...), api_key: str = Form(None)):
         print(f"Gemini AI Error: {e}")
         elements = [] # fallback to empty if AI fails
         
-    return {"imageUrl": f"/uploads/{filename}", "elements": elements}
+    return {"imageUrl": f"/uploads/{filename}", "elements": elements, "width": width, "height": height}
 
 @app.post("/generate")
 async def generate_dxf(req: DXFRequest):

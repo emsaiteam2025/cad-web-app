@@ -33,7 +33,7 @@ function undo() {
         isHistoryProcessing = true;
         historyStack.pop(); // 丟棄當前狀態
         const previousState = historyStack[historyStack.length - 1];
-        
+
         canvas.loadFromJSON(previousState, function() {
             canvas.renderAll();
             isHistoryProcessing = false;
@@ -54,7 +54,7 @@ window.addEventListener('keydown', function(e) {
 function applyColor() {
     const color = document.getElementById('colorPicker').value;
     const activeObjects = canvas.getActiveObjects();
-    
+
     if (activeObjects.length === 0) {
         statusText.innerText = "請先點選畫布上的元件，再套用顏色！";
         return;
@@ -118,46 +118,40 @@ document.getElementById('imageInput').addEventListener('change', async (e) => {
         statusText.innerText = "正在呼叫 Google Gemini 視覺模型分析圖面... 請稍候 (可能需要 10-20 秒)";
         const response = await fetch('/upload', { method: 'POST', body: formData });
         const data = await response.json();
-        
+
         if (data.error) {
             alert("AI 辨識錯誤: " + data.error);
             statusText.innerText = "辨識失敗：" + data.error;
             e.target.value = '';
             return;
         }
+
+        isHistoryProcessing = true;
+        canvas.clear(); // 先清空舊物件與畫布
         
-        // 設定圖片背景
-        fabric.Image.fromURL(data.imageUrl, function(img) {
-            if (!img) {
-                console.error("無法載入圖片");
-                statusText.innerText = "圖片載入失敗，請重試。";
-                e.target.value = '';
-                return;
-            }
-            isHistoryProcessing = true;
-            canvas.clear(); // 先清空舊物件與畫布
-            
-            canvas.setWidth(img.width);
-            canvas.setHeight(img.height);
-            canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas), {
-                originX: 'left',
-                originY: 'top'
-            });
-            statusText.innerText = "草圖載入完成！您可以直接拖曳畫布上的物件進行線上編輯。";
-            
-            // 繪製 AI 辨識出的物件
-            if (data.elements && data.elements.length > 0) {
-                renderElements(data.elements);
-            }
-            isHistoryProcessing = false;
-            
-            // 重置並記錄初始歷史狀態
-            historyStack = [];
-            saveHistory();
-            
-            // 清空 input，讓使用者可以重複上傳同一張照片
-            e.target.value = '';
-        });
+        // 設定畫布尺寸與手繪圖相同，但不顯示手繪底圖
+        const cw = data.width || 1000;
+        const ch = data.height || 600;
+        canvas.setWidth(cw);
+        canvas.setHeight(ch);
+        canvas.backgroundColor = '#fafafa';
+        
+        statusText.innerText = "AI 辨識完成！已自動將草圖轉換為可編輯的元件。";
+        
+        // 繪製 AI 辨識出的物件
+        if (data.elements && data.elements.length > 0) {
+            renderElements(data.elements);
+        }
+        
+        canvas.renderAll();
+        isHistoryProcessing = false;
+        
+        // 重置並記錄初始歷史狀態
+        historyStack = [];
+        saveHistory();
+        
+        // 清空 input，讓使用者可以重複上傳同一張照片
+        e.target.value = '';
         
     } catch (error) {
         console.error("上傳失敗", error);
@@ -264,7 +258,7 @@ function renderElements(elements) {
             let f3 = new fabric.Line([15, -15, 15, 15], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
             obj = new fabric.Group([l1, f1, f2, f3], { left: item.x - 15, top: item.y - 15, customType: 'quick_release' });
         }
-        
+
         if (obj) {
             canvas.add(obj);
         }
@@ -282,9 +276,9 @@ async function generateDXF() {
     const payload = [];
     objects.forEach(obj => {
         if (!obj.customType) return;
-        
+
         let item = { type: obj.customType, angle: obj.angle || 0 };
-        
+
         if (obj.customType === 'pipe') {
             // 計算縮放/旋轉後的實際座標
             let p1 = new fabric.Point(obj.x1, obj.y1);
@@ -317,9 +311,9 @@ async function generateDXF() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ items: payload })
         });
-        
+
         const data = await response.json();
-        
+
         if (data.downloadUrl) {
             statusText.innerText = "產生成功！即將下載。";
             window.location.href = data.downloadUrl;
