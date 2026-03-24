@@ -104,6 +104,12 @@ document.getElementById('imageInput').addEventListener('change', async (e) => {
         
         // 設定圖片背景
         fabric.Image.fromURL(data.imageUrl, function(img) {
+            if (!img) {
+                console.error("無法載入圖片");
+                statusText.innerText = "圖片載入失敗，請重試。";
+                e.target.value = '';
+                return;
+            }
             isHistoryProcessing = true;
             canvas.clear(); // 先清空舊物件與畫布
             
@@ -116,7 +122,7 @@ document.getElementById('imageInput').addEventListener('change', async (e) => {
             statusText.innerText = "草圖載入完成！您可以直接拖曳畫布上的物件進行線上編輯。";
             
             // 繪製 AI 辨識出的物件
-            if (data.elements) {
+            if (data.elements && data.elements.length > 0) {
                 renderElements(data.elements);
             }
             isHistoryProcessing = false;
@@ -124,11 +130,15 @@ document.getElementById('imageInput').addEventListener('change', async (e) => {
             // 重置並記錄初始歷史狀態
             historyStack = [];
             saveHistory();
+            
+            // 清空 input，讓使用者可以重複上傳同一張照片
+            e.target.value = '';
         });
         
     } catch (error) {
         console.error("上傳失敗", error);
         statusText.innerText = "辨識失敗，請重試。";
+        e.target.value = '';
     }
 });
 
