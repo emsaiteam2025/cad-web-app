@@ -34,6 +34,10 @@ class CADItem(BaseModel):
 class DXFRequest(BaseModel):
     items: List[CADItem]
 
+@app.get("/")
+async def serve_root():
+    return FileResponse("static/index.html")
+
 @app.post("/upload")
 async def upload_image(file: UploadFile = File(...)):
     filename = f"{int(time.time())}_{file.filename}"
