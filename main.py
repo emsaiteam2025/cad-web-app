@@ -1,13 +1,16 @@
+import os
+import time
+import math
+import json
+from typing import List
 from fastapi import FastAPI, File, UploadFile, Request
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import ezdxf
-import os
-import time
-import math
-from typing import List
+from google import genai
+from google.genai import types
 
 app = FastAPI()
 
@@ -45,20 +48,66 @@ async def upload_image(file: UploadFile = File(...)):
     with open(filepath, "wb") as f:
         f.write(await file.read())
     
-    # 模擬 AI 視覺辨識：將草圖轉換為「現有元件庫」的物件
-    # 注意：MVP 階段使用固定座標模擬。未來需串接 Vision API (如 GPT-4o 或 Gemini) 進行真實圖片解析
-    mock_detected_elements = [
-        {"type": "pipe", "x1": 100, "y1": 300, "x2": 250, "y2": 300},
-        {"type": "sleeve", "x": 250, "y": 300},
-        {"type": "pipe", "x1": 250, "y1": 300, "x2": 350, "y2": 300},
-        {"type": "valve", "x": 350, "y": 300},
-        {"type": "pipe", "x1": 350, "y1": 300, "x2": 450, "y2": 300},
-        {"type": "meter", "x": 450, "y": 300},
-        {"type": "pipe", "x1": 450, "y1": 300, "x2": 550, "y2": 300},
-        {"type": "reducer", "x": 550, "y": 300},
-        {"type": "pipe", "x1": 550, "y1": 300, "x2": 700, "y2": 300},
-    ]
-    return {"imageUrl": f"/uploads/{filename}", "elements": mock_detected_elements}
+    elements = []
+    
+    # Check if Gemini API key is configured
+    api_key = os.environ.get("GEMINI_API_KEY")
+    if not api_key:
+        print("Warning: GEMINI_API_KEY is not set. Using mock response.")
+        return {"imageUrl": f"/uploads/{filename}", "elements": []}
+    
+    try:
+        from PIL import Image
+        import io
+        
+        # Load the image for Gemini
+        img = Image.open(filepath)
+        width, height = img.size
+        
+        # Initialize Gemini Client
+        client = genai.Client(api_key=api_key)
+        
+        prompt = f"""
+        You are an expert CAD engineer analyzing a hand-drawn water piping schematic.
+        The image dimensions are {width}x{height} pixels.
+        Analyze the image and return ONLY a JSON array of detected elements.
+        
+        Supported 'type' values and required coordinates:
+        1. "pipe" -> needs x1, y1 (start) and x2, y2 (end).
+        2. "meter" (水量計) -> needs x, y (center).
+        3. "valve" (彈性座封閘閥 / square with X) -> needs x, y.
+        4. "sleeve" (套管 / double curve joints) -> needs x, y.
+        5. "reducer" (大小頭 / trapezoid) -> needs x, y.
+        6. "tee" (丁字管) -> needs x, y.
+        7. "elbow90" (90°彎頭) -> needs x, y.
+        8. "elbow45" (45°彎頭) -> needs x, y.
+        9. "quick_release" (快拆) -> needs x, y.
+        10. "short_a" (短甲) -> needs x, y.
+        11. "short_b" (短乙) -> needs x, y.
+        
+        Return pure JSON array, e.g. [{{"type": "pipe", "x1": 100, "y1": 200, "x2": 300, "y2": 200}}, {{"type": "valve", "x": 300, "y": 200}}]. 
+        Do not use markdown blocks.
+        """
+        
+        response = client.models.generate_content(
+            model='gemini-2.5-flash',
+            contents=[img, prompt],
+            config=types.GenerateContentConfig(
+                temperature=0.1,
+                response_mime_type="application/json"
+            )
+        )
+        
+        # Parse JSON array returned by Gemini
+        import json
+        elements = json.loads(response.text)
+        print(f"Gemini successfully detected {len(elements)} elements.")
+        
+    except Exception as e:
+        print(f"Gemini AI Error: {e}")
+        elements = [] # fallback to empty if AI fails
+        
+    return {"imageUrl": f"/uploads/{filename}", "elements": elements}
 
 @app.post("/generate")
 async def generate_dxf(req: DXFRequest):
