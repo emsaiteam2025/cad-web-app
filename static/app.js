@@ -103,17 +103,27 @@ document.getElementById('imageInput').addEventListener('change', async (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
+    const apiKey = localStorage.getItem('geminiApiKey') || apiKeyInput.value;
+    if (!apiKey) {
+        alert('請先在上方輸入您的 Google Gemini API 金鑰！');
+        e.target.value = '';
+        return;
+    }
+
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("api_key", apiKeyInput.value);
+    formData.append("api_key", apiKey);
 
     try {
-        statusText.innerText = "正在呼叫 Google Gemini 視覺模型分析圖面...";
+        statusText.innerText = "正在呼叫 Google Gemini 視覺模型分析圖面... 請稍候 (可能需要 10-20 秒)";
         const response = await fetch('/upload', { method: 'POST', body: formData });
         const data = await response.json();
         
         if (data.error) {
             alert("AI 辨識錯誤: " + data.error);
+            statusText.innerText = "辨識失敗：" + data.error;
+            e.target.value = '';
+            return;
         }
         
         // 設定圖片背景
