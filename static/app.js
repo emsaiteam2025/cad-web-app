@@ -205,10 +205,15 @@ function renderElements(elements) {
                 left: item.x - 20, top: item.y - 20, customType: 'valve'
             });
         } else if (item.type === 'sleeve') {
-            let arc1 = new fabric.Circle({ radius: 10, startAngle: Math.PI/2, endAngle: 3*Math.PI/2, fill: 'transparent', stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center', left: -15 });
-            let l1 = new fabric.Line([-15, 0, 15, 0], { stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center' });
-            let arc2 = new fabric.Circle({ radius: 10, startAngle: -Math.PI/2, endAngle: Math.PI/2, fill: 'transparent', stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center', left: 15 });
-            obj = new fabric.Group([arc1, l1, arc2], { left: item.x - 25, top: item.y - 10, customType: 'sleeve' });
+            let opts = { stroke: '#0056b3', strokeWidth: 3, fill: 'transparent', originX: 'center', originY: 'center', strokeLineJoin: 'round' };
+            let leftPath = new fabric.Polyline([
+                {x: -15, y: -20}, {x: -15, y: -8}, {x: -5, y: -8}, {x: -5, y: 8}, {x: -15, y: 8}, {x: -15, y: 20}
+            ], opts);
+            let rightPath = new fabric.Polyline([
+                {x: 15, y: -20}, {x: 15, y: -8}, {x: 5, y: -8}, {x: 5, y: 8}, {x: 15, y: 8}, {x: 15, y: 20}
+            ], opts);
+            let centerLine = new fabric.Line([-5, 0, 5, 0], { stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center' });
+            obj = new fabric.Group([leftPath, rightPath, centerLine], { left: item.x - 15, top: item.y - 20, customType: 'sleeve' });
         } else if (item.type === 'short_a') {
             let f1 = new fabric.Line([-20, -15, -20, 15], { stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center' });
             let l1 = new fabric.Line([-20, 0, 15, 0], { stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center' });
