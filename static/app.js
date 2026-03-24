@@ -104,18 +104,21 @@ document.getElementById('imageInput').addEventListener('change', async (e) => {
         
         // 設定圖片背景
         fabric.Image.fromURL(data.imageUrl, function(img) {
+            isHistoryProcessing = true;
+            canvas.clear(); // 先清空舊物件與畫布
+            
             canvas.setWidth(img.width);
             canvas.setHeight(img.height);
             canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas), {
                 originX: 'left',
                 originY: 'top'
             });
-            statusText.innerText = "辨識完成！您可以直接拖曳畫布上的物件進行線上編輯。";
+            statusText.innerText = "草圖載入完成！您可以直接拖曳畫布上的物件進行線上編輯。";
             
             // 繪製 AI 辨識出的物件
-            isHistoryProcessing = true;
-            canvas.clear(); // 清空舊物件
-            renderElements(data.elements);
+            if (data.elements) {
+                renderElements(data.elements);
+            }
             isHistoryProcessing = false;
             
             // 重置並記錄初始歷史狀態
