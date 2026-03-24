@@ -171,9 +171,22 @@ async def generate_dxf(req: DXFRequest):
             ], item.angle)
         elif item.type == 'short_b':
             add_lines('SYMBOLS', item.color, cx, cy, [(-20, -15, -20, 15), (-20, 0, 20, 0)], item.angle)
-        elif item.type == 'reducer':
+        elif item.type == 'reducer_1' or item.type == 'reducer':
             add_lines('SYMBOLS', item.color, cx, cy, [
                 (-15, -15, -15, 15), (15, -8, 15, 8), (-15, -15, 15, -8), (-15, 15, 15, 8)
+            ], item.angle)
+        elif item.type == 'reducer_2':
+            add_lines('SYMBOLS', item.color, cx, cy, [
+                (-15, -15, -15, -5), (-15, -5, -8, 0), (-8, 0, -15, 5), (-15, 5, -15, 15),
+                (-15, -15, 10, -5), (10, -5, 25, -5),
+                (-15, 15, 10, 5), (10, 5, 25, 5)
+            ], item.angle)
+        elif item.type == 'reducer_3':
+            add_lines('SYMBOLS', item.color, cx, cy, [
+                (-15, -15, -15, -5), (-15, -5, -8, 0), (-8, 0, -15, 5), (-15, 5, -15, 15),
+                (-15, -15, 10, -5), (10, -5, 25, -5),
+                (-15, 15, 10, 5), (10, 5, 25, 5),
+                (25, -5, 20, -1), (20, -1, 30, 2), (30, 2, 25, 5)
             ], item.angle)
         elif item.type == 'tee':
             add_lines('SYMBOLS', item.color, cx, cy, [
