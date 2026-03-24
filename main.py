@@ -165,8 +165,10 @@ async def generate_dxf(req: DXFRequest):
                 (-5, 0, 5, 0)
             ], item.angle)
         elif item.type == 'short_a':
-            add_lines('SYMBOLS', item.color, cx, cy, [(-20, -15, -20, 15), (-20, 0, 15, 0)], item.angle)
-            msp.add_arc(get_rotated_pts(cx, cy, [(cx+15, cy)], item.angle)[0], radius=10, start_angle=-90-item.angle, end_angle=90-item.angle, dxfattribs=get_attribs('SYMBOLS', item.color))
+            add_lines('SYMBOLS', item.color, cx, cy, [
+                (-15, -20, -15, 20), (-15, 0, 5, 0),
+                (15, -20, 15, -8), (15, -8, 5, -8), (5, -8, 5, 8), (5, 8, 15, 8), (15, 8, 15, 20)
+            ], item.angle)
         elif item.type == 'short_b':
             add_lines('SYMBOLS', item.color, cx, cy, [(-20, -15, -20, 15), (-20, 0, 20, 0)], item.angle)
         elif item.type == 'reducer':
