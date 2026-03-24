@@ -188,10 +188,22 @@ async def generate_dxf(req: DXFRequest):
                 (-15, 15, 10, 5), (10, 5, 25, 5),
                 (25, -5, 20, -1), (20, -1, 30, 2), (30, 2, 25, 5)
             ], item.angle)
-        elif item.type == 'tee':
+        elif item.type == 'tee_1' or item.type == 'tee':
             add_lines('SYMBOLS', item.color, cx, cy, [
                 (-20, 0, 20, 0), (0, 0, 0, -20), 
-                (-20, -10, -20, 10), (20, -10, 20, 10), (-10, -20, 10, -20)
+                (-20, -10, -20, 10), (-10, -20, 10, -20)
+            ], item.angle)
+        elif item.type == 'tee_2':
+            add_lines('SYMBOLS', item.color, cx, cy, [
+                (-15, 0, 20, 0), (0, 0, 0, -20),
+                (-20, -12, -15, -12), (-15, -12, -15, 12), (-15, 12, -20, 12),
+                (-10, -20, 10, -20)
+            ], item.angle)
+        elif item.type == 'tee_3':
+            add_lines('SYMBOLS', item.color, cx, cy, [
+                (-15, 0, 20, 0), (0, 0, 0, -15),
+                (-20, -12, -15, -12), (-15, -12, -15, 12), (-15, 12, -20, 12),
+                (-12, -25, -12, -20), (-12, -20, 12, -20), (12, -20, 12, -25)
             ], item.angle)
         elif item.type == 'elbow90':
             add_lines('SYMBOLS', item.color, cx, cy, [

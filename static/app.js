@@ -284,13 +284,26 @@ function renderElements(elements) {
             let botL = new fabric.Polyline([{x: -15, y: 15}, {x: 10, y: 5}, {x: 25, y: 5}], opts);
             let zig = new fabric.Polyline([{x: 25, y: -5}, {x: 20, y: -2}, {x: 30, y: 2}, {x: 25, y: 5}], opts);
             obj = new fabric.Group([l1, topL, botL, zig], { left: item.x - 15, top: item.y - 15, customType: 'reducer_3' });
-        } else if (item.type === 'tee') {
+        } else if (item.type === 'tee_1' || item.type === 'tee') {
             let l1 = new fabric.Line([-20, 0, 20, 0], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
-            let l2 = new fabric.Line([0, 0, 0, 20], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
+            let l2 = new fabric.Line([0, 0, 0, -20], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
             let f1 = new fabric.Line([-20, -10, -20, 10], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
-            let f2 = new fabric.Line([20, -10, 20, 10], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
-            let f3 = new fabric.Line([-10, 20, 10, 20], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
-            obj = new fabric.Group([l1, l2, f1, f2, f3], { left: item.x - 20, top: item.y - 10, customType: 'tee' });
+            let f2 = new fabric.Line([-10, -20, 10, -20], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
+            obj = new fabric.Group([l1, l2, f1, f2], { left: item.x - 20, top: item.y - 20, customType: 'tee_1' });
+        } else if (item.type === 'tee_2') {
+            let opts = { stroke: '#0056b3', strokeWidth: 3, fill: 'transparent', originX: 'center', originY: 'center', strokeLineJoin: 'round' };
+            let l1 = new fabric.Line([-15, 0, 20, 0], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
+            let l2 = new fabric.Line([0, 0, 0, -20], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
+            let leftSocket = new fabric.Polyline([{x: -20, y: -12}, {x: -15, y: -12}, {x: -15, y: 12}, {x: -20, y: 12}], opts);
+            let topFlange = new fabric.Line([-10, -20, 10, -20], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
+            obj = new fabric.Group([l1, l2, leftSocket, topFlange], { left: item.x - 20, top: item.y - 20, customType: 'tee_2' });
+        } else if (item.type === 'tee_3') {
+            let opts = { stroke: '#0056b3', strokeWidth: 3, fill: 'transparent', originX: 'center', originY: 'center', strokeLineJoin: 'round' };
+            let l1 = new fabric.Line([-15, 0, 20, 0], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
+            let l2 = new fabric.Line([0, 0, 0, -15], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
+            let leftSocket = new fabric.Polyline([{x: -20, y: -12}, {x: -15, y: -12}, {x: -15, y: 12}, {x: -20, y: 12}], opts);
+            let topSocket = new fabric.Polyline([{x: -12, y: -25}, {x: -12, y: -20}, {x: 12, y: -20}, {x: 12, y: -25}], opts);
+            obj = new fabric.Group([l1, l2, leftSocket, topSocket], { left: item.x - 20, top: item.y - 25, customType: 'tee_3' });
         } else if (item.type === 'elbow90') {
             let l1 = new fabric.Line([-15, -15, -15, 15], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
             let l2 = new fabric.Line([-15, 15, 15, 15], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
