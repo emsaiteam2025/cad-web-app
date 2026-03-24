@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工程手繪圖轉 CAD 系統 (線上編輯版)</title>
+    <!-- 引入 Fabric.js 以支援線上拖曳編輯 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f6f9; margin: 0; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #333; }
+        .toolbar { display: flex; gap: 10px; margin-bottom: 20px; align-items: center; justify-content: center; flex-wrap: wrap; }
+        button { padding: 10px 15px; border: none; border-radius: 4px; background: #007bff; color: white; cursor: pointer; font-size: 14px; transition: background 0.3s; }
+        button:hover { background: #0056b3; }
+        button.active { background: #28a745; }
+        button.danger { background: #dc3545; }
+        button.danger:hover { background: #c82333; }
+        #canvas-container { border: 2px dashed #ccc; background: #fafafa; display: flex; justify-content: center; position: relative; }
+        .status { text-align: center; margin-top: 10px; color: #666; font-size: 14px; }
+        .instructions { background: #e9ecef; padding: 10px; border-radius: 4px; font-size: 14px; margin-bottom: 20px; text-align: center; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>📐 現場工程手繪圖轉 CAD (自動運算+線上編輯版)</h1>
+    
+    <div class="instructions">
+        <strong>操作說明：</strong> 
+        上傳圖片後，AI 視覺引擎（MVP 暫用模擬數據）會自動為您畫出管線與接頭。
+        您可以**直接在畫布上拖曳、調整大小**，或按 <kbd>Delete</kbd> / <kbd>Backspace</kbd> 刪除選取的元件。
+    </div>
+
+    <div class="toolbar">
+        <input type="file" id="imageInput" accept="image/*" style="display: none;">
+        <button onclick="document.getElementById('imageInput').click()">上傳手繪草圖 (自動運算)</button>
+        <button class="tool-btn" data-tool="meter">水量計</button>
+        <button class="tool-btn" data-tool="valve">彈性座封閘閥</button>
+        <button class="tool-btn" data-tool="sleeve">套管</button>
+        <button class="tool-btn" data-tool="short_a">短甲</button>
+        <button class="tool-btn" data-tool="short_b">短乙</button>
+        <button class="tool-btn" data-tool="reducer">大小頭</button>
+        <button class="tool-btn" data-tool="tee">丁字管</button>
+        <button class="tool-btn" data-tool="elbow90">90°彎頭</button>
+        <button class="tool-btn" data-tool="elbow45">45°彎頭</button>
+        <button class="tool-btn" data-tool="quick_release">快拆</button>
+        <button class="tool-btn" data-tool="text">文字</button>
+        <button class="tool-btn" data-tool="arrow">箭頭</button>
+        <span style="border-left: 1px solid #ccc; margin: 0 10px; height: 30px;"></span>
+        <input type="color" id="colorPicker" value="#0056b3" title="選擇顏色" style="cursor: pointer; height: 36px; border: none;">
+        <button onclick="applyColor()" style="background: #17a2b8;">套用顏色</button>
+        <button class="danger" onclick="deleteSelected()">刪除選取元件</button>
+        <button onclick="undo()" style="background: #ffc107; color: #333;">還原 (上一步)</button>
+        <button onclick="generateDXF()" style="background: #6f42c1;">產生 DXF 下載</button>
+    </div>
+
+    <div id="canvas-container">
+        <canvas id="editorCanvas" width="1000" height="600"></canvas>
+    </div>
+    <div class="status" id="statusText">請先上傳圖片，讓系統為您自動運算。</div>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

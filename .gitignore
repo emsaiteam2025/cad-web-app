@@ -1,0 +1,6 @@
+# .gitignore
+.venv/
+__pycache__/
+uploads/
+output/
+.DS_Store
