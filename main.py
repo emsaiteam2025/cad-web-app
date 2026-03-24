@@ -205,10 +205,17 @@ async def generate_dxf(req: DXFRequest):
                 (-20, -12, -15, -12), (-15, -12, -15, 12), (-15, 12, -20, 12),
                 (-12, -25, -12, -20), (-12, -20, 12, -20), (12, -20, 12, -25)
             ], item.angle)
-        elif item.type == 'elbow90':
+        elif item.type == 'elbow90_1' or item.type == 'elbow90':
             add_lines('SYMBOLS', item.color, cx, cy, [
-                (-15, 15, -15, -15), (-15, -15, 15, -15),
-                (-25, 15, -5, 15), (15, -25, 15, -5)
+                (-15, -15, -15, 10), (-15, 10, 10, 10),
+                (-20, -15, -10, -15), (-15, -15, -15, -25), (-20, -25, -10, -25),
+                (10, 5, 10, 15)
+            ], item.angle)
+        elif item.type == 'elbow90_2':
+            add_lines('SYMBOLS', item.color, cx, cy, [
+                (-15, -15, -15, 10), (-15, 10, 10, 10),
+                (-20, -15, -10, -15),
+                (10, 5, 10, 15)
             ], item.angle)
         elif item.type == 'elbow45':
             add_lines('SYMBOLS', item.color, cx, cy, [
