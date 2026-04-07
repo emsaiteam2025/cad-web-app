@@ -218,10 +218,11 @@ async def generate_dxf(req: DXFRequest):
             ], item.angle)
         elif item.type == 'elbow45':
             add_lines('SYMBOLS', item.color, cx, cy, [
-                (-15, 25, -15, 8), (-15, -8, -15, -25),
-                (-15, 0, 10, 0), (10, 0, 25, -15)
+                (-15, 20, -15, 10), (-15, 10, -5, 10),
+                (-5, -10, -15, -10), (-15, -10, -15, -20),
+                (5, 0, 20, 0), (20, 0, 35, 15)
             ], item.angle)
-            msp.add_arc(get_rotated_pts(cx, cy, [(cx-15, cy)], item.angle)[0], radius=8, start_angle=90-item.angle, end_angle=270-item.angle, dxfattribs=get_attribs('SYMBOLS', item.color))
+            msp.add_arc(get_rotated_pts(cx, cy, [(cx-5, cy)], item.angle)[0], radius=10, start_angle=-90-item.angle, end_angle=90-item.angle, dxfattribs=get_attribs('SYMBOLS', item.color))
         elif item.type == 'quick_release':
             add_lines('SYMBOLS', item.color, cx, cy, [
                 (-15, 0, 15, 0), (-15, -15, -15, 15), (15, -15, 15, 15),
