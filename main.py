@@ -207,23 +207,23 @@ async def generate_dxf(req: DXFRequest):
             ], item.angle)
         elif item.type == 'elbow90_1' or item.type == 'elbow90':
             add_lines('SYMBOLS', item.color, cx, cy, [
-                (-15, 10, -15, 6), (-15, 6, -10, 6),
-                (-10, -6, -15, -6), (-15, -6, -15, -10),
-                (-4, 0, 15, 0), (15, 0, 15, 20)
+                (-20, 16, -20, 6), (-20, 6, -12, 6),
+                (-12, -6, -20, -6), (-20, -6, -20, -16),
+                (-6, 0, 18, 0), (18, 0, 18, 24)
             ], item.angle)
-            msp.add_arc(get_rotated_pts(cx, cy, [(cx-10, cy)], item.angle)[0], radius=6, start_angle=-90-item.angle, end_angle=90-item.angle, dxfattribs=get_attribs('SYMBOLS', item.color))
+            msp.add_arc(get_rotated_pts(cx, cy, [(cx-12, cy)], item.angle)[0], radius=6, start_angle=-90-item.angle, end_angle=90-item.angle, dxfattribs=get_attribs('SYMBOLS', item.color))
         elif item.type == 'elbow90_2':
             add_lines('SYMBOLS', item.color, cx, cy, [
-                (-15, 10, -15, -10),
-                (-15, 0, 15, 0), (15, 0, 15, 20)
+                (-15, 16, -15, -16),
+                (-15, 0, 18, 0), (18, 0, 18, 24)
             ], item.angle)
         elif item.type == 'elbow45':
             add_lines('SYMBOLS', item.color, cx, cy, [
-                (-15, 10, -15, 6), (-15, 6, -10, 6),
-                (-10, -6, -15, -6), (-15, -6, -15, -10),
-                (-4, 0, 15, 0), (15, 0, 30, 15)
+                (-20, 16, -20, 6), (-20, 6, -12, 6),
+                (-12, -6, -20, -6), (-20, -6, -20, -16),
+                (-6, 0, 18, 0), (18, 0, 36, 18)
             ], item.angle)
-            msp.add_arc(get_rotated_pts(cx, cy, [(cx-10, cy)], item.angle)[0], radius=6, start_angle=-90-item.angle, end_angle=90-item.angle, dxfattribs=get_attribs('SYMBOLS', item.color))
+            msp.add_arc(get_rotated_pts(cx, cy, [(cx-12, cy)], item.angle)[0], radius=6, start_angle=-90-item.angle, end_angle=90-item.angle, dxfattribs=get_attribs('SYMBOLS', item.color))
         elif item.type == 'quick_release':
             add_lines('SYMBOLS', item.color, cx, cy, [
                 (-15, 0, 15, 0), (-15, -15, -15, 15), (15, -15, 15, 15),
