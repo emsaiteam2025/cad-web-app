@@ -318,9 +318,10 @@ function renderElements(elements) {
             let pipe = new fabric.Polyline([{x: -6, y: 0}, {x: 18, y: 0}, {x: 18, y: -24}], { stroke: '#0056b3', strokeWidth: 3, fill: 'transparent', strokeLineCap: 'round', strokeLineJoin: 'round' });
             obj = new fabric.Group([socketPath, pipe], { left: item.x - 20, top: item.y - 20, customType: 'elbow90_1' });
         } else if (item.type === 'elbow90_2') {
-            let lFlange = new fabric.Line([-15, -16, -15, 16], { stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center' });
-            let pipe = new fabric.Polyline([{x: -15, y: 0}, {x: 18, y: 0}, {x: 18, y: -24}], { stroke: '#0056b3', strokeWidth: 3, fill: 'transparent', originX: 'center', originY: 'center', strokeLineJoin: 'round' });
-            obj = new fabric.Group([lFlange, pipe], { left: item.x - 15, top: item.y - 20, customType: 'elbow90_2' });
+            let socketPath = new fabric.Path('M -20 -16 L -20 -6 L -12 -6 A 6 6 0 0 1 -12 6 L -20 6 L -20 16', { stroke: '#0056b3', strokeWidth: 3, fill: 'transparent', strokeLineCap: 'round', strokeLineJoin: 'round' });
+            let pipe = new fabric.Polyline([{x: -6, y: 0}, {x: 18, y: 0}, {x: 18, y: -24}], { stroke: '#0056b3', strokeWidth: 3, fill: 'transparent', strokeLineCap: 'round', strokeLineJoin: 'round' });
+            let topFlange = new fabric.Line([8, -24, 28, -24], { stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center' });
+            obj = new fabric.Group([socketPath, pipe, topFlange], { left: item.x - 20, top: item.y - 20, customType: 'elbow90_2' });
         } else if (item.type === 'elbow45') {
             let socketPath = new fabric.Path('M -20 -16 L -20 -6 L -12 -6 A 6 6 0 0 1 -12 6 L -20 6 L -20 16', { stroke: '#0056b3', strokeWidth: 3, fill: 'transparent', strokeLineCap: 'round', strokeLineJoin: 'round' });
             let pipe = new fabric.Polyline([{x: -6, y: 0}, {x: 18, y: 0}, {x: 36, y: -18}], { stroke: '#0056b3', strokeWidth: 3, fill: 'transparent', strokeLineCap: 'round', strokeLineJoin: 'round' });
