@@ -314,17 +314,17 @@ function renderElements(elements) {
             ], opts);
             obj = new fabric.Group([l1, l2, leftSocket, topSocket], { left: item.x - 20, top: item.y - 20, customType: 'tee_3' });
         } else if (item.type === 'elbow90_1' || item.type === 'elbow90') {
-            let socketPath = new fabric.Path('M -20 -20 L -20 -10 L -5 -10 A 10 10 0 0 1 -5 10 L -20 10 L -20 20', { stroke: '#0056b3', strokeWidth: 3, fill: 'transparent', strokeLineCap: 'round', strokeLineJoin: 'round' });
-            let pipe = new fabric.Polyline([{x: 5, y: 0}, {x: 25, y: 0}, {x: 25, y: -25}], { stroke: '#0056b3', strokeWidth: 3, fill: 'transparent', strokeLineCap: 'round', strokeLineJoin: 'round' });
-            obj = new fabric.Group([socketPath, pipe], { left: item.x - 25, top: item.y - 25, customType: 'elbow90_1' });
+            let socketPath = new fabric.Path('M -15 -10 L -15 -6 L -10 -6 A 6 6 0 0 1 -10 6 L -15 6 L -15 10', { stroke: '#0056b3', strokeWidth: 3, fill: 'transparent', strokeLineCap: 'round', strokeLineJoin: 'round' });
+            let pipe = new fabric.Polyline([{x: -4, y: 0}, {x: 15, y: 0}, {x: 15, y: -20}], { stroke: '#0056b3', strokeWidth: 3, fill: 'transparent', strokeLineCap: 'round', strokeLineJoin: 'round' });
+            obj = new fabric.Group([socketPath, pipe], { left: item.x - 20, top: item.y - 20, customType: 'elbow90_1' });
         } else if (item.type === 'elbow90_2') {
-            let lFlange = new fabric.Line([-15, -20, -15, 20], { stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center' });
-            let pipe = new fabric.Polyline([{x: -15, y: 0}, {x: 15, y: 0}, {x: 15, y: 20}], { stroke: '#0056b3', strokeWidth: 3, fill: 'transparent', originX: 'center', originY: 'center', strokeLineJoin: 'round' });
+            let lFlange = new fabric.Line([-15, -10, -15, 10], { stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center' });
+            let pipe = new fabric.Polyline([{x: -15, y: 0}, {x: 15, y: 0}, {x: 15, y: -20}], { stroke: '#0056b3', strokeWidth: 3, fill: 'transparent', originX: 'center', originY: 'center', strokeLineJoin: 'round' });
             obj = new fabric.Group([lFlange, pipe], { left: item.x - 15, top: item.y - 20, customType: 'elbow90_2' });
         } else if (item.type === 'elbow45') {
-            let socketPath = new fabric.Path('M -20 -20 L -20 -10 L -5 -10 A 10 10 0 0 1 -5 10 L -20 10 L -20 20', { stroke: '#0056b3', strokeWidth: 3, fill: 'transparent', strokeLineCap: 'round', strokeLineJoin: 'round' });
-            let pipe = new fabric.Polyline([{x: 5, y: 0}, {x: 25, y: 0}, {x: 45, y: -20}], { stroke: '#0056b3', strokeWidth: 3, fill: 'transparent', strokeLineCap: 'round', strokeLineJoin: 'round' });
-            obj = new fabric.Group([socketPath, pipe], { left: item.x - 25, top: item.y - 20, customType: 'elbow45' });
+            let socketPath = new fabric.Path('M -15 -10 L -15 -6 L -10 -6 A 6 6 0 0 1 -10 6 L -15 6 L -15 10', { stroke: '#0056b3', strokeWidth: 3, fill: 'transparent', strokeLineCap: 'round', strokeLineJoin: 'round' });
+            let pipe = new fabric.Polyline([{x: -4, y: 0}, {x: 15, y: 0}, {x: 30, y: -15}], { stroke: '#0056b3', strokeWidth: 3, fill: 'transparent', strokeLineCap: 'round', strokeLineJoin: 'round' });
+            obj = new fabric.Group([socketPath, pipe], { left: item.x - 20, top: item.y - 15, customType: 'elbow45' });
         } else if (item.type === 'quick_release') {
             let l1 = new fabric.Line([-15, 0, 15, 0], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
             let f1 = new fabric.Line([-15, -15, -15, 15], {stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'});
