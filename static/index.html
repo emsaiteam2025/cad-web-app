@@ -24,7 +24,7 @@
 <body>
 
 <div class="container">
-    <h1>📐 現場工程手繪圖轉 CAD <span style="font-size: 16px; color: #fff; background: #dc3545; padding: 4px 10px; border-radius: 12px; vertical-align: middle;">v1.0.22 強制更新緩存</span></h1>
+    <h1>📐 現場工程手繪圖轉 CAD <span style="font-size: 16px; color: #fff; background: #dc3545; padding: 4px 10px; border-radius: 12px; vertical-align: middle;">v1.0.23 新增雙承口 90°彎頭</span></h1>
     
     <div class="instructions">
         <strong>操作說明：</strong> 
@@ -82,6 +82,15 @@
         <div style="position: relative; display: inline-block;">
             <button class="dropdown-btn" style="padding: 10px 15px; border: none; border-radius: 4px; background: #007bff; color: white; cursor: pointer; font-size: 14px;" onclick="toggleDropdown('elbow90Menu')">90°彎頭 ▼</button>
             <div id="elbow90Menu" class="dropdown-content" style="display: none; position: absolute; background-color: #f9f9f9; min-width: 140px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 100; border-radius: 4px; top: 100%; left: 0;">
+                <a href="#" class="sub-tool-btn" data-tool="elbow90_3" style="color: black; padding: 10px 12px; text-decoration: none; display: flex; align-items: center; border-bottom: 1px solid #ddd; font-size: 14px;">
+                    <svg viewBox="0 0 40 40" width="20" height="20" style="margin-right: 8px;">
+                        <path d="M 5 12 L 5 16 L 11 16 M 5 28 L 5 24 L 11 24" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <path d="M 11 16 A 4 4 0 0 1 11 24" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <path d="M 16 5 L 16 11 L 20 11 M 28 5 L 28 11 L 24 11" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <path d="M 20 11 A 4 4 0 0 0 24 11" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <polyline points="15,20 22,20 22,15" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                    </svg> 雙承口
+                </a>
                 <a href="#" class="sub-tool-btn" data-tool="elbow90_2" style="color: black; padding: 10px 12px; text-decoration: none; display: flex; align-items: center; border-bottom: 1px solid #ddd; font-size: 14px;">
                     <svg viewBox="0 0 40 40" width="20" height="20" style="margin-right: 8px;">
                         <path d="M 5 8 L 5 14 L 13 14 M 5 32 L 5 26 L 13 26" fill="none" stroke="currentColor" stroke-width="2"/>
@@ -118,6 +127,6 @@
     <div class="status" id="statusText">請先上傳圖片，讓系統為您自動運算。</div>
 </div>
 
-<script src="/static/app.js?v=1.0.22"></script>
+<script src="/static/app.js?v=1.0.23"></script>
 </body>
 </html>

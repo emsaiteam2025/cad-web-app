@@ -220,6 +220,16 @@ async def generate_dxf(req: DXFRequest):
                 (8, 24, 28, 24)
             ], item.angle)
             msp.add_arc(get_rotated_pts(cx, cy, [(cx-12, cy)], item.angle)[0], radius=6, start_angle=-90-item.angle, end_angle=90-item.angle, dxfattribs=get_attribs('SYMBOLS', item.color))
+        elif item.type == 'elbow90_3':
+            add_lines('SYMBOLS', item.color, cx, cy, [
+                (-20, 16, -20, 6), (-20, 6, -12, 6),
+                (-12, -6, -20, -6), (-20, -6, -20, -16),
+                (-6, 0, 18, 0), (18, 0, 18, 12),
+                (2, 26, 12, 26), (12, 26, 12, 18),
+                (24, 18, 24, 26), (24, 26, 34, 26)
+            ], item.angle)
+            msp.add_arc(get_rotated_pts(cx, cy, [(cx-12, cy)], item.angle)[0], radius=6, start_angle=-90-item.angle, end_angle=90-item.angle, dxfattribs=get_attribs('SYMBOLS', item.color))
+            msp.add_arc(get_rotated_pts(cx, cy, [(cx+18, cy+18)], item.angle)[0], radius=6, start_angle=180-item.angle, end_angle=360-item.angle, dxfattribs=get_attribs('SYMBOLS', item.color))
         elif item.type == 'elbow45':
             add_lines('SYMBOLS', item.color, cx, cy, [
                 (-20, 16, -20, 6), (-20, 6, -12, 6),
