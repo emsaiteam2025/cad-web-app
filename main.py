@@ -251,6 +251,10 @@ async def generate_dxf(req: DXFRequest):
             add_lines('POINTERS', item.color, cx, cy, [
                 (-20, 0, 20, 0), (20, 0, 10, 5), (20, 0, 10, -5)
             ], item.angle)
+        elif item.type == 'l_arrow':
+            add_lines('POINTERS', item.color, cx, cy, [
+                (-20, -20, -20, 0), (-20, 0, 20, 0), (20, 0, 10, 5), (20, 0, 10, -5)
+            ], item.angle)
 
     filename = f"output_{int(time.time())}.dxf"
     filepath = os.path.join("output", filename)

@@ -264,6 +264,11 @@ function renderElements(elements) {
             let line = new fabric.Line([-20, 0, 15, 0], { stroke: '#e83e8c', strokeWidth: 4, originX: 'center', originY: 'center' });
             let head = new fabric.Triangle({ width: 15, height: 15, fill: '#e83e8c', originX: 'center', originY: 'center', left: 20, angle: 90 });
             obj = new fabric.Group([line, head], { left: item.x - 20, top: item.y - 10, customType: 'arrow' });
+        } else if (item.type === 'l_arrow') {
+            let line1 = new fabric.Line([-20, -20, -20, 0], { stroke: '#e83e8c', strokeWidth: 4, originX: 'center', originY: 'center' });
+            let line2 = new fabric.Line([-20, 0, 15, 0], { stroke: '#e83e8c', strokeWidth: 4, originX: 'center', originY: 'center' });
+            let head = new fabric.Triangle({ width: 15, height: 15, fill: '#e83e8c', originX: 'center', originY: 'center', left: 20, top: 0, angle: 90 });
+            obj = new fabric.Group([line1, line2, head], { left: item.x - 20, top: item.y - 20, customType: 'l_arrow' });
         } else if (item.type === 'reducer_1' || item.type === 'reducer') {
             let p = new fabric.Polygon([{x: -15, y: -15}, {x: 15, y: -8}, {x: 15, y: 8}, {x: -15, y: 15}], {
                 fill: 'rgba(255,255,255,0.8)', stroke: '#0056b3', strokeWidth: 3, originX: 'center', originY: 'center'
@@ -380,7 +385,7 @@ async function generateDXF() {
             item.x = obj.left + (obj.width * obj.scaleX) / 2;
             item.y = obj.top + (obj.height * obj.scaleY) / 2;
         }
-        item.color = item.color || obj.customColor || (obj.customType === 'pipe' ? '#28a745' : (obj.customType === 'arrow' ? '#e83e8c' : '#0056b3'));
+        item.color = item.color || obj.customColor || (obj.customType === 'pipe' ? '#28a745' : ((obj.customType === 'arrow' || obj.customType === 'l_arrow') ? '#e83e8c' : '#0056b3'));
         payload.push(item);
     });
 
