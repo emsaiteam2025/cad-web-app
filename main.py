@@ -8,9 +8,6 @@ from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-import ezdxf
-from google import genai
-from google.genai import types
 
 app = FastAPI()
 
@@ -59,7 +56,9 @@ async def upload_image(file: UploadFile = File(...), api_key: str = Form(None)):
     try:
         from PIL import Image
         import io
-        
+        from google import genai
+        from google.genai import types
+
         # Load the image for Gemini
         img = Image.open(filepath)
         width, height = img.size
@@ -111,6 +110,7 @@ async def upload_image(file: UploadFile = File(...), api_key: str = Form(None)):
 
 @app.post("/generate")
 async def generate_dxf(req: DXFRequest):
+    import ezdxf
     doc = ezdxf.new('R2010')
     doc.layers.add('PIPES', color=7)
     doc.layers.add('SYMBOLS', color=5)
